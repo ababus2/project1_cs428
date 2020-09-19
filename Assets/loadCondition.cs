@@ -4,11 +4,13 @@ using UnityEngine;
 using TMPro;
 using SimpleJSON;
 using UnityEngine.Networking;
-public class WeatherAPIScriptHum : MonoBehaviour
+
+public class loadCondition : MonoBehaviour
 {
-    public string humidityFinal;
-    public static float humDigit;
-    public GameObject weatherTextObject;
+    public string conditionFinal;
+    public static float tempDigit; 
+    public GameObject sun;
+    GameObject sunObject;
     string url = "http://api.openweathermap.org/data/2.5/weather?lat=41.88&lon=-87.6&APPID=df7f9b099826a16b4c61f302fcd0f0d2&units=imperial";
     // Start is called before the first frame update
     void Start()
@@ -41,13 +43,13 @@ public class WeatherAPIScriptHum : MonoBehaviour
             else
             {
                 var N = JSON.Parse(cRequest.text);
-                string hum = N["main"]["humidity"].Value; //get the temperature
+                string condition = N["weather"]["description"].Value; //get the temperature
                 float tempTemp; //variable to hold the parsed temperature
-                float.TryParse(hum, out tempTemp); //parse the temperature
-                humDigit = tempTemp;
-                humidityFinal = hum;
+                //float.TryParse(temp, out tempTemp); //parse the temperature
+                //tempDigit = tempTemp;
+                conditionFinal = condition;
                 // print out the weather data to make sure it makes sense
-                Debug.Log(":\nReceived temp: " + humidityFinal);
+                Debug.Log(":\nReceived temp: " + conditionFinal);
             }
         }
     }
@@ -56,6 +58,9 @@ public class WeatherAPIScriptHum : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        weatherTextObject.GetComponent<TextMeshPro>().text = humidityFinal;
+        //weatherTextObject.GetComponent<TextMeshPro>().text = conditionFinal+"° F";
+        sunObject = (GameObject)Instantiate(sun);
+        sunObject.transform.position = new Vector3 (0,0,0);
     }
+
 }
