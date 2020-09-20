@@ -7,10 +7,10 @@ using UnityEngine.Networking;
 
 public class loadCondition : MonoBehaviour
 {
+    public GameObject weatherTextObject;
     public string conditionFinal;
     public static float tempDigit; 
-    public GameObject sun;
-    GameObject sunObject;
+    
     string url = "http://api.openweathermap.org/data/2.5/weather?lat=41.88&lon=-87.6&APPID=df7f9b099826a16b4c61f302fcd0f0d2&units=imperial";
     // Start is called before the first frame update
     void Start()
@@ -58,9 +58,8 @@ public class loadCondition : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //weatherTextObject.GetComponent<TextMeshPro>().text = conditionFinal+"° F";
-        sunObject = (GameObject)Instantiate(sun);
-        sunObject.transform.position = new Vector3 (0,0,0);
+        weatherTextObject.GetComponent<TextMeshPro>().text = conditionFinal;
+        
     }
 
 }
